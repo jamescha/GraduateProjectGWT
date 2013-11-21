@@ -1,7 +1,7 @@
 package csuf.graduate.project.server;
-import net.tinyos.tools.*;
 import csuf.graduate.project.client.GreetingService;
 import csuf.graduate.project.shared.FieldVerifier;
+import csuf.graduate.project.shared.Listen;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -13,7 +13,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
 	
-	
+	//Listen listen = new Listen("serial@COM1:telosb");
 	
 	
 	public String greetServer(String input) throws IllegalArgumentException {
@@ -24,8 +24,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
 		}
-		
-		Listen listen = new Listen();
+
 			
 		
 		String serverInfo = getServletContext().getServerInfo();
