@@ -13,7 +13,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
 	
-	//Listen listen = new Listen("serial@COM1:telosb");
+	Listen listen = new Listen("serial@COM1:telosb");
 	
 	
 	public String greetServer(String input) throws IllegalArgumentException {
