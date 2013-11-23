@@ -1,0 +1,2 @@
+serviceClass: csuf.graduate.project.client.GreetingService
+path: 06FA68C6604612DE28BB7862519FC4AB.gwt.rpc
