@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import net.tinyos.tools.Listen;
 
+
 //import csuf.graduate.project.shared.Listen;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -15,11 +16,14 @@ import csuf.graduate.project.client.GreetingService;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
+	private Listen listen;
+	
+	@SuppressWarnings("static-access")
 	public void startListen()
 	{
 		String args[] = {"-comm", "serial@/dev/ttyUSB0:115200"};
 		try {
-			Listen.main(args);
+			listen.main(args);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
