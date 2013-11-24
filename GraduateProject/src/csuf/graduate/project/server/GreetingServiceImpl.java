@@ -14,8 +14,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
 	
-	
-	@SuppressWarnings("static-access")
 	public void startListen()
 	{
 		Listen listen = new Listen("serial@/dev/ttyUSB0:115200");
