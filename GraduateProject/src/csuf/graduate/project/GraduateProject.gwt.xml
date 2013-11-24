@@ -10,7 +10,11 @@
   <inherits name='com.google.gwt.user.User'/>
 
   <!-- GWT BootStrap											  -->
-   <inherits name ="com.github.gwtbootstrap.Bootstrap"/>
+  <inherits name ="com.github.gwtbootstrap.Bootstrap"/>
+   
+  <!-- GWT Highcharts											  -->
+  <inherits name="org.moxieapps.gwt.highcharts.Highcharts"/> 
+   
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->

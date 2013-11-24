@@ -1,10 +1,8 @@
 package csuf.graduate.project.server;
-import java.io.IOException;
-
-import csuf.graduate.project.shared.Listen;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import csuf.graduate.project.client.GreetingService;
+import csuf.graduate.project.shared.Listen;
 
 /**
  * The server side implementation of the RPC service.

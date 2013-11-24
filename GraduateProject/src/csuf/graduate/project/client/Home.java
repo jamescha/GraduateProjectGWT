@@ -17,6 +17,7 @@ public class Home extends Composite {
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
+	
 
 	interface HomeUiBinder extends UiBinder<Widget, Home> {
 	}
@@ -50,4 +51,6 @@ public class Home extends Composite {
 			ex.printStackTrace();
 		}				
 	}
+	
+	
 }
