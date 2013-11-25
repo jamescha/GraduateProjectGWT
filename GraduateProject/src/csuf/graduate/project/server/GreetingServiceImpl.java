@@ -12,9 +12,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 	
 	Listen listen = new Listen("serial@/dev/ttyUSB0:115200");
+	String temp;
 	
 	public String startListen()
 	{
-		return listen.startListen();
+		temp = listen.startListen();
+		System.out.println(temp);
+		return temp;
 	}
 }
