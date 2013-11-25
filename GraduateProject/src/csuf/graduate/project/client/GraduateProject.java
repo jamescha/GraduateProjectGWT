@@ -25,7 +25,5 @@ public class GraduateProject implements EntryPoint {
 		homePanel.add(home);
 		RootPanel.get("home").add(homePanel);
 		
-		
-		
 	}
 }

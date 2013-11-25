@@ -4,5 +4,8 @@
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<g:HTMLPanel>
 		<b:Button type="SUCCESS" ui:field="startButton">Start</b:Button>
+		<b:Hero>
+			<b:Heading size="2" ui:field="test">Place Holder</b:Heading>
+		</b:Hero>
 	</g:HTMLPanel>
 </ui:UiBinder> 

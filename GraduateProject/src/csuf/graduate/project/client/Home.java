@@ -4,6 +4,7 @@ import org.moxieapps.gwt.highcharts.client.Chart;
 import org.moxieapps.gwt.highcharts.client.Series;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.Heading;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -41,23 +42,27 @@ public class Home extends Composite {
 
 	@UiField
 	Button startButton;
+	Heading test;
 
 	@UiHandler("startButton")
 	void onClick(ClickEvent e) {
-		greetingService.startListen(chart,series,new AsyncCallback<Void>() {
-			
-			@Override
-			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
+		
+		for(;;) {
+			greetingService.startListen(new AsyncCallback<String>() {
 				
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				@Override
+				public void onSuccess(String result) {
+					test.setText(result);
+					
+				}
 				
-			}
-		});				
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
 	}
 	
 	
