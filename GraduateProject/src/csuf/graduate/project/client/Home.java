@@ -2,13 +2,23 @@ package csuf.graduate.project.client;
 
 import java.util.Date;
 
+import org.moxieapps.gwt.highcharts.client.Axis;
 import org.moxieapps.gwt.highcharts.client.Chart;
+import org.moxieapps.gwt.highcharts.client.Credits;
+import org.moxieapps.gwt.highcharts.client.Legend;
 import org.moxieapps.gwt.highcharts.client.Series;
+import org.moxieapps.gwt.highcharts.client.ToolTip;
+import org.moxieapps.gwt.highcharts.client.ToolTipData;
+import org.moxieapps.gwt.highcharts.client.ToolTipFormatter;
+import org.moxieapps.gwt.highcharts.client.labels.DataLabels;
+import org.moxieapps.gwt.highcharts.client.plotOptions.BarPlotOptions;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Heading;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -24,14 +34,34 @@ public class Home extends Composite {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 	
-	Chart chart = new Chart()
-	   .setType(Series.Type.SPLINE)
-	   .setChartTitleText("Lawn Tunnels")
-	   .setMarginRight(10);
+	final Chart chart = new Chart()  
+    .setType(Series.Type.SPLINE)  
+    .setMarginRight(10)  
+    .setChartTitleText("Live random data")  
+    .setBarPlotOptions(new BarPlotOptions()  
+        .setDataLabels(new DataLabels()  
+            .setEnabled(true)  
+        )  
+    )  
+    .setLegend(new Legend()  
+        .setEnabled(false)  
+    )  
+    .setCredits(new Credits()  
+        .setEnabled(false)  
+    )  
+    .setToolTip(new ToolTip()  
+        .setFormatter(new ToolTipFormatter() {  
+            public String format(ToolTipData toolTipData) {  
+                return "<b>" + toolTipData.getSeriesName() + "</b><br/>" +  
+                    DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss")  
+                        .format(new Date(toolTipData.getXAsLong())) + "<br/>" +  
+                    NumberFormat.getFormat("0.00").format(toolTipData.getYAsDouble());  
+            }  
+        })  
+    );
 	
-	Series series = chart.createSeries()
-			   .setName("Moles per Yard")
-			   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
+	final Series series = chart.createSeries()
+			.setName("Random data");
 	
 
 	interface HomeUiBinder extends UiBinder<Widget, Home> {
@@ -39,6 +69,19 @@ public class Home extends Composite {
 
 	public Home() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		chart.getXAxis()  
+        .setType(Axis.Type.DATE_TIME)  
+        .setTickPixelInterval(150);  
+
+	    chart.getYAxis()  
+	        .setAxisTitleText("Value")  
+	        .setPlotLines(  
+	            chart.getYAxis().createPlotLine()  
+	                .setValue(0)  
+	                .setWidth(1)  
+	                .setColor("#808080")  
+	        );
 		chart.addSeries(series);
 		RootPanel.get().add(chart);
 	}
@@ -74,6 +117,7 @@ public class Home extends Composite {
 						
 						try{
 							test.setText(result);
+							System.out.println("SUCCESS");
 							final String[] newTextArray = result.split(" ", -1);
 							for(Integer i = 0; i<20; i+=2) {
 								if(Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) < 1500 ) { //Humidity
