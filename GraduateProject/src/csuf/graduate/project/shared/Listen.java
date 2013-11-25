@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import net.tinyos.packet.BuildSource;
 import net.tinyos.packet.PacketSource;
-import net.tinyos.util.Dump;
 import net.tinyos.util.PrintStreamMessenger;
 
 public class Listen {
@@ -27,9 +26,9 @@ public class Listen {
 		
 		try {
 			packet = reader.readPacket();
-			Dump.printPacket(System.out, packet);
+			/*Dump.printPacket(System.out, packet);
 		    System.out.println();
-		    System.out.flush();
+		    System.out.flush();*/
 			return packet.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

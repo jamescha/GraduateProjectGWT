@@ -57,6 +57,7 @@ public class Home extends Composite {
 					public void onSuccess(String result) {
 						try{
 							test.setText(result);
+							System.out.println(result);
 						}
 						catch (NullPointerException e){}
 						
