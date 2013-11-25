@@ -11,7 +11,6 @@ import net.tinyos.util.PrintStreamMessenger;
 public class Listen {
 	
 	PacketSource reader;
-	PrintStream pStream;
 	
 	public Listen (String source) {
 		reader = BuildSource.makePacketSource(source);
@@ -26,12 +25,13 @@ public class Listen {
 	public String startListen () {
 		 
 		byte[] packet = null;
+		String sPacket = "";
 		
 		try {
 			packet = reader.readPacket();
-			Dump.printPacket(pStream, packet);
+			Dump.dump(sPacket, packet);
 			
-			return pStream.toString();
+			return sPacket;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
