@@ -1,9 +1,11 @@
 package csuf.graduate.project.shared;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import net.tinyos.packet.BuildSource;
 import net.tinyos.packet.PacketSource;
+import net.tinyos.util.Dump;
 import net.tinyos.util.PrintStreamMessenger;
 
 public class Listen {
@@ -26,10 +28,11 @@ public class Listen {
 		
 		try {
 			packet = reader.readPacket();
-			/*Dump.printPacket(System.out, packet);
-		    System.out.println();
-		    System.out.flush();*/
-			return packet.toString();
+			System.out.flush();
+			Dump.printPacket(System.out, packet);
+			
+		    
+			return System.out.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
