@@ -1,5 +1,7 @@
 package csuf.graduate.project.client;
 
+import java.util.Date;
+
 import org.moxieapps.gwt.highcharts.client.Chart;
 import org.moxieapps.gwt.highcharts.client.Series;
 
@@ -55,9 +57,54 @@ public class Home extends Composite {
 					
 					@Override
 					public void onSuccess(String result) {
+						
+						Integer countHum = 0;
+						Integer countMSP = 0;
+						Integer countSen = 0;
+						Integer sumMSP = 0;
+						Integer sumSen = 0;
+						Integer sumHum = 0;
+						Double averageMSP = 0.0;
+						Double averageHum = 0.0;
+						Double averageSen = 0.0;
+						Double temperatureMSP = 0.0;
+						Double temperatureSen = 0.0;
+						Double humidity = 0.0;
+						
+						
 						try{
 							test.setText(result);
-							System.out.println(result);
+							final String[] newTextArray = result.split(" ", -1);
+							for(Integer i = 0; i<20; i+=2) {
+								if(Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) < 1500 ) { //Humidity
+									sumHum += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
+									countHum++;
+								}
+								else if (Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) > 1500&& //MSP430 
+										 Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) < 3500 ) {
+									sumMSP += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
+									countMSP++;
+								}
+								else if (Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) > 5500) { //Sensirian
+									sumSen += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
+									countSen++;
+								}
+								
+								averageMSP = sumMSP/(countMSP * 1.0);
+								averageSen = sumSen/(countSen * 1.0);
+								averageHum = sumHum/(countHum * 1.0);
+								
+								temperatureMSP = ((((((averageMSP / 4096.0) * 1.5) - 0.986) / 0.00355) * 9.0) / 5.0) + 32.0;
+								temperatureSen = (((-38.4 + (averageSen * 0.0098)) * 9.0) / 5.0) + 32.0;
+								humidity = (-0.0000028 * averageHum * averageHum) + (0.0405 * averageHum - 4) ;
+
+							}
+							
+							series.addPoint(  
+				                    new Date().getTime(),  
+				                    com.google.gwt.user.client.Random.nextDouble(),  
+				                    true, true, true  
+				                );  
 						}
 						catch (NullPointerException e){}
 						
