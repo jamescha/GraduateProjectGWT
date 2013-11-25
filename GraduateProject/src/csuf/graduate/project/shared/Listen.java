@@ -12,19 +12,25 @@ public class Listen {
 	
 	public Listen (String source) {
 		reader = BuildSource.makePacketSource(source);
+		try {
+			reader.open(PrintStreamMessenger.err);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String startListen () {
 		 
-		 byte[] packet = null;
+		byte[] packet = null;
 		
 		try {
-			  reader.open(PrintStreamMessenger.err);
-			  packet = reader.readPacket();
-			}
-		catch (IOException e) {
-			    System.err.println("Error on " + reader.getName() + ": " + e);
-			}
+			packet = reader.readPacket();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return packet.toString();
 	}
 	
