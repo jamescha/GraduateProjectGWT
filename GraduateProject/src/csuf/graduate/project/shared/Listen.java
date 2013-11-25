@@ -11,24 +11,14 @@ import net.tinyos.util.PrintStreamMessenger;
 import org.moxieapps.gwt.highcharts.client.Chart;
 import org.moxieapps.gwt.highcharts.client.Series;
 
-import com.google.gwt.user.client.ui.RootPanel;
-
 public class Listen {
-	Chart chart = new Chart()
-	   .setType(Series.Type.SPLINE)
-	   .setChartTitleText("Lawn Tunnels")
-	   .setMarginRight(10);
-	
-	Series series = chart.createSeries()
-			   .setName("Moles per Yard")
-			   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
 	
 	
-	public Listen (String source) {
+	
+	public Listen (String source,Chart chart,Series series) {
         PacketSource reader = BuildSource.makePacketSource(source);
 		
-        chart.addSeries(series);
-		RootPanel.get().add(chart);
+        
         
 		try {
 			  reader.open(PrintStreamMessenger.err);
