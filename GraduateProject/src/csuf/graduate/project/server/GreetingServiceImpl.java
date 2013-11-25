@@ -17,6 +17,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	public String startListen()
 	{
 		temp = listen.startListen();
+		//System.out.println("Success Service");
 		return temp;
 	}
 }

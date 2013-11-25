@@ -82,6 +82,11 @@ public class Home extends Composite {
 	                .setWidth(1)  
 	                .setColor("#808080")  
 	        );
+	    long time = new Date().getTime();  
+        for(int i = -19; i <= 0; i++) {  
+            series.addPoint(time + i * 1000, com.google.gwt.user.client.Random.nextDouble());  
+        } 
+          
 		chart.addSeries(series);
 		RootPanel.get().add(chart);
 	}
@@ -114,49 +119,49 @@ public class Home extends Composite {
 						Double temperatureSen = 0.0;
 						Double humidity = 0.0;
 						
-						
-						try{
-							test.setText(result);
-							System.out.println("SUCCESS");
-							final String[] newTextArray = result.split(" ", -1);
-							for(Integer i = 0; i<20; i+=2) {
-								if(Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) < 1500 ) { //Humidity
-									sumHum += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
-									countHum++;
-								}
-								else if (Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) > 1500&& //MSP430 
-										 Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) < 3500 ) {
-									sumMSP += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
-									countMSP++;
-								}
-								else if (Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16) > 5500) { //Sensirian
-									sumSen += Integer.parseInt((newTextArray[18+i] + newTextArray[19+i]),16);
-									countSen++;
-								}
-								
-								averageMSP = sumMSP/(countMSP * 1.0);
-								averageSen = sumSen/(countSen * 1.0);
-								averageHum = sumHum/(countHum * 1.0);
-								
-								temperatureMSP = ((((((averageMSP / 4096.0) * 1.5) - 0.986) / 0.00355) * 9.0) / 5.0) + 32.0;
-								temperatureSen = (((-38.4 + (averageSen * 0.0098)) * 9.0) / 5.0) + 32.0;
-								humidity = (-0.0000028 * averageHum * averageHum) + (0.0405 * averageHum - 4) ;
-
+						final String[] newTextArray = result.split(" ", -1);
+						for(Integer i = 0; i<20; i+=2) {
+							System.out.println(result);
+							System.out.println(newTextArray[15]);
+							System.out.println(newTextArray[16]);
+							System.out.println(Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16));
+							if(Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16) < 1500 ) { //Humidity
+								sumHum += Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16);
+								countHum++;
+							}
+							else if (Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16) > 1500&& //MSP430 
+									 Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16) < 3500 ) {
+								sumMSP += Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16);
+								countMSP++;
+							}
+							else if (Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16) > 5500) { //Sensirian
+								sumSen += Integer.parseInt((newTextArray[16+i] + newTextArray[15+i]),16);
+								countSen++;
 							}
 							
-							series.addPoint(  
-				                    new Date().getTime(),  
-				                    com.google.gwt.user.client.Random.nextDouble(),  
-				                    true, true, true  
-				                );  
+							averageMSP = sumMSP/(countMSP * 1.0);
+							averageSen = sumSen/(countSen * 1.0);
+							averageHum = sumHum/(countHum * 1.0);
+							
+							temperatureMSP = ((((((averageMSP / 4096.0) * 1.5) - 0.986) / 0.00355) * 9.0) / 5.0) + 32.0;
+							temperatureSen = (((-38.4 + (averageSen * 0.0098)) * 9.0) / 5.0) + 32.0;
+							humidity = (-0.0000028 * averageHum * averageHum) + (0.0405 * averageHum - 4) ;
+							
 						}
-						catch (NullPointerException e){}
 						
-					}
+						System.out.println(temperatureMSP);
+						System.out.println(temperatureSen);
+						System.out.println(humidity);
+						series.addPoint(  
+			                    new Date().getTime(),  
+			                    com.google.gwt.user.client.Random.nextDouble(),  
+			                    true, true, true  
+			                );  
+				}
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
+						System.out.println("FAIL");
 						
 					}
 					

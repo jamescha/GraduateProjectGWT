@@ -1,7 +1,6 @@
 package csuf.graduate.project.shared;
 
 import java.io.IOException;
-import java.io.PrintStream;
 
 import net.tinyos.packet.BuildSource;
 import net.tinyos.packet.PacketSource;
@@ -29,8 +28,8 @@ public class Listen {
 		
 		try {
 			packet = reader.readPacket();
-			Dump.dump(sPacket, packet);
-			
+			sPacket = packetToString(packet);
+			//System.out.println("Success Listen");
 			return sPacket;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -38,6 +37,19 @@ public class Listen {
 		}
 		
 		return "";
+	}
+	
+	public static String packetToString(byte[] packet){
+		String sPacket = "";
+		
+		for (int i = 0; i < packet.length; i++) {
+			
+			if (packet[i] >= 0 && packet[i] < 16)
+				sPacket += "0";
+			sPacket += (Integer.toHexString(packet[i] & 0xff).toUpperCase() + " ");
+		}
+		
+		return sPacket;
 	}
 	
 }
