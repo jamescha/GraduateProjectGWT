@@ -3,13 +3,29 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<g:HTMLPanel>
-		<b:Hero>
-			<b:Heading size="2">Sensor Node Data</b:Heading>
-		</b:Hero>
-	
-		<b:Button type="SUCCESS" ui:field="startButton">Start</b:Button>
-		<b:Button type="WARNING" ui:field="MSPButton">MSP Line</b:Button>
-		<b:Button type="PRIMARY" ui:field="SenButton">Sen Line</b:Button>
-		<b:Button type="DANGER" ui:field="HumButton">Humidity Line</b:Button>
+		<g:HorizontalPanel horizontalAlignment="ALIGN_CENTER">
+			<b:Hero>
+				<b:Heading size="2" >Sensor Node Data</b:Heading>
+			</b:Hero>
+		</g:HorizontalPanel>
+		
+		<g:HorizontalPanel>
+			<b:Button type="SUCCESS" ui:field="startButton">Start</b:Button>
+		</g:HorizontalPanel>
+		
+		<g:HorizontalPanel>
+			<b:Button type="INVERSE" enabled="false">Node 1</b:Button>
+			<b:Button type="WARNING" ui:field="MSPButton">MSP Line</b:Button>
+			<b:Button type="PRIMARY" ui:field="SenButton">Sen Line</b:Button>
+			<b:Button type="DANGER" ui:field="HumButton">Humidity Line</b:Button>
+		</g:HorizontalPanel>
+		
+		<g:HorizontalPanel>
+			<b:Button type="INVERSE" enabled="false">Node 2</b:Button>
+			<b:Button type="WARNING" ui:field="MSPButton2">MSP Line</b:Button>
+			<b:Button type="PRIMARY" ui:field="SenButton2">Sen Line</b:Button>
+			<b:Button type="DANGER" ui:field="HumButton2">Humidity Line</b:Button>
+		</g:HorizontalPanel>
+		
 	</g:HTMLPanel>
 </ui:UiBinder> 
