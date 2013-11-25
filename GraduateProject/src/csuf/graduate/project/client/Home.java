@@ -31,13 +31,18 @@ import com.google.gwt.user.client.ui.Widget;
 public class Home extends Composite {
 
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
+	
+	Boolean mspToggle = true;
+	Boolean senToggle = true;
+	Boolean humToggle = true;
+	
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 	
 	final Chart chart = new Chart()  
     .setType(Series.Type.SPLINE)  
     .setMarginRight(10)  
-    .setChartTitleText("Live random data")  
+    .setChartTitleText("Sensor Data")  
     .setBarPlotOptions(new BarPlotOptions()  
         .setDataLabels(new DataLabels()  
             .setEnabled(true)  
@@ -60,8 +65,14 @@ public class Home extends Composite {
         })  
     );
 	
-	final Series series = chart.createSeries()
-			.setName("Random data");
+	final Series msp = chart.createSeries()
+			.setName("MSP Temperature");
+	
+	final Series hum = chart.createSeries()
+			.setName("Humidity");
+	
+	final Series sen = chart.createSeries()
+			.setName("Sen Temperature");
 	
 
 	interface HomeUiBinder extends UiBinder<Widget, Home> {
@@ -82,18 +93,51 @@ public class Home extends Composite {
 	                .setWidth(1)  
 	                .setColor("#808080")  
 	        );
-	    long time = new Date().getTime();  
-        for(int i = -19; i <= 0; i++) {  
-            series.addPoint(time + i * 1000, com.google.gwt.user.client.Random.nextDouble());  
-        } 
           
-		chart.addSeries(series);
+		chart.addSeries(msp);
+		chart.addSeries(sen);
+		chart.addSeries(hum);
 		RootPanel.get().add(chart);
 	}
 
 	@UiField
 	Button startButton;
+	Button MSPButton;
+	Button SenButton;
+	Button HumButton;
 	Heading test;
+	
+	@UiHandler("MSPButton")
+	void MSP(ClickEvent e){
+		if (mspToggle)
+			msp.hide();
+		else
+			msp.show();
+		
+		mspToggle = !mspToggle;
+	}
+	
+	@UiHandler("SenButton")
+	void Sen(ClickEvent e){
+		if (senToggle)
+			sen.hide();
+		else
+			sen.show();
+		
+		senToggle = !senToggle;
+	}
+	
+	@UiHandler("HumButton")
+	void Hum(ClickEvent e) {
+		if (humToggle)
+			hum.hide();
+		else
+			hum.show();
+		
+		humToggle = !humToggle;
+	}
+	
+	
 
 	@UiHandler("startButton")
 	void onClick(ClickEvent e) {
@@ -149,14 +193,52 @@ public class Home extends Composite {
 							
 						}
 						
-						System.out.println(temperatureMSP);
-						System.out.println(temperatureSen);
-						System.out.println(humidity);
-						series.addPoint(  
-			                    new Date().getTime(),  
-			                    com.google.gwt.user.client.Random.nextDouble(),  
-			                    true, true, true  
-			                );  
+						if (msp.getPoints().length > 15) {
+							msp.addPoint(  
+				                    new Date().getTime(),  
+				                    temperatureMSP,  
+				                    true, true, true  
+				                );
+						}
+						else {
+							msp.addPoint(  
+				                    new Date().getTime(),  
+				                    temperatureMSP,  
+				                    true, false, true  
+				                );
+						}
+						
+						if (sen.getPoints().length > 15) {
+							sen.addPoint(  
+				                    new Date().getTime(),  
+				                    temperatureSen,  
+				                    true, true, true  
+				                );
+						}
+						else {
+							sen.addPoint(  
+				                    new Date().getTime(),  
+				                    temperatureSen,  
+				                    true, false, true  
+				                );
+						}
+						
+						
+						if (hum.getPoints().length > 15) {
+							hum.addPoint(  
+				                    new Date().getTime(),  
+				                    humidity,  
+				                    true, true, true  
+				                );
+						}
+						else {
+							hum.addPoint(  
+				                    new Date().getTime(),  
+				                    humidity,  
+				                    true, false, true  
+				                );
+						}
+							
 				}
 					
 					@Override

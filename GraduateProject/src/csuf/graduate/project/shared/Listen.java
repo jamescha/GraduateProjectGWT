@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import net.tinyos.packet.BuildSource;
 import net.tinyos.packet.PacketSource;
-import net.tinyos.util.Dump;
 import net.tinyos.util.PrintStreamMessenger;
 
 public class Listen {
