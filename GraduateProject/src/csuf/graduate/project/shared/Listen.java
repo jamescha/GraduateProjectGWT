@@ -26,12 +26,13 @@ public class Listen {
 		
 		try {
 			packet = reader.readPacket();
+			return packet.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return packet.toString();
+		
+		return "";
 	}
 	
 }
