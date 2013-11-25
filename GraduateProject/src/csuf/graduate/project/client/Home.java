@@ -55,7 +55,10 @@ public class Home extends Composite {
 					
 					@Override
 					public void onSuccess(String result) {
-						test.setText(result);
+						try{
+							test.setText(result);
+						}
+						catch (NullPointerException e){}
 						
 					}
 					
